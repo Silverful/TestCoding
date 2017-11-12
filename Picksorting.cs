@@ -3,42 +3,43 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PickSort
+namespace PickSorter
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<int> UnsortedList = new List<int> { 1, 5, 2, 9, 7,11, 3, 8,5,3 };
-            PickSorter Sorter = new PickSorter();
-            List<int> SortedList = Sorter.Sort(UnsortedList);
-            foreach(int i in SortedList)
-            {
-                Console.WriteLine(i);
-            }
+            int[] Ar = new int[] { 11,1, 5,8, 9, 2, 8, 7 };
+            Console.WriteLine("Before sorting: ");
+            foreach (int i in Ar)
+                Console.Write(i + " ");
+            Console.WriteLine("\n After Sorting:");
+            PickSort.PickSorting(Ar);
+            foreach (int i in Ar)
+                Console.Write(i + " ");
             Console.ReadKey();
         }
-
     }
-    public class PickSorter
+    static class PickSort
     {
-        public List<int> Sort(List<int> UnsortedList)
+        public static void PickSorting(int[]Ar)
         {
-            List<int> SortedList = new List<int>();
-            int UnsLength = UnsortedList.Count;
-            while (SortedList.Count != UnsLength)
-            { 
-                int max = UnsortedList[0];
-                foreach (int j in UnsortedList)
+            for (int i = 0; i < Ar.Length-1; i++)
+            {
+                int min = Ar[i];
+                int minIndex = i;
+                for (int j = i; j < Ar.Length; j++)
                 {
-                    if (max <= j)
-                        max = j;
-                    
+                    if (Ar[j] < min)
+                    {
+                        min = Ar[j];
+                        minIndex = j;
+                    }
                 }
-                SortedList.Add(max);
-                UnsortedList.Remove(max);
+                int temp = Ar[i];
+                Ar[i] = min;
+                Ar[minIndex] = temp;
             }
-            return SortedList;
         }
     }
 }
